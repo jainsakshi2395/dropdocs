@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>User Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+    background-color: #1abc9c; /* Green */
+    color: #ffffff;
+  }
+  .bg-2 { 
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 { 
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  .custom-table{
+      font: 16px Montserrat, sans-serif;
+ padding-top: 10px;
+  padding-bottom: 10px;
+   }
+   .viewbutton{
+   padding-bottom: 20px;
+   }
+  
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/test}">DROPDOCS</a>
+    </div>
+    <div id="myNavbar">
+      <ul class="nav navbar-nav"> 
+      <li> <p >
+                Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b> </p></li>
+               
+      </ul>
+       <form th:action="@{/logout}" method="post">
+           <input type="submit" class="btn btn-danger navbar-btn navbar-right" value="Sign Out" />
+        
+            
+        </form>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Second Container -->
+<div class="container-fluid bg-3 text-center custom-table">
+  	
+		<div class ="margin" > 
+		    <div>
+        <h4>All Uploaded documents </h4>
+    </div>
+	<table class="table table-responsive table-hover ">
+				<thead >
+					<tr>
+						<th>File Name</th>
+						<th>Size</th>
+						<th>Uploaded By</th>
+						<th>Description</th>
+						<th>Uploaded Time</th>
+						<th>Updated Time</th>
+						<th>Action</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="doc : ${listDocs}">
+						<td>[[${doc.fileName}]]</td>
+						<td>([[${#numbers.formatInteger(doc.size,4,'COMMA')}]] bytes)</td>
+						<td>[[${doc.uploadedBy}]]</td>
+						<td>[[${doc.description}]]</td>
+						<td>[[${doc.uploadTime}]]</td>
+						<td>[[${doc.updatedTime}]]</td>
+
+						<td align="center">
+								
+								<a class="label label-danger"
+							th:href="@{'/delete?id='+ ${doc.id}}">
+							delete</a><br>
+						
+								</td>
+								
+								</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		</div>	
+		
+		</div>
+		 <div class="viewbutton text-center ">
+		 <a  class="btn btn-info" th:href="@{/dashboard}">Upload Document</a>
+            </div>
+</div>
+		
+</div>
+
+
+
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Website : <a href="http://www.jainsakshi.com/">www.jainsakshi.com</a></p> 
+</footer>
+
+</body>
+</html>

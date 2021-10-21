@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>User Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+    background-color: #1abc9c; /* Green */
+    color: #ffffff;
+  }
+  .bg-2 { 
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 { 
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  
+  .viewbutton{
+  
+    padding-top: 15px;
+ 
+  }
+  
+  #myfile{
+  
+   margin-left: 200px;
+   padding-top: 15px;
+  }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/test}">DROPDOCS</a>
+    </div>
+    <div id="myNavbar">
+      <ul class="nav navbar-nav"> 
+      <li> <p >
+                Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b> </p></li>
+               
+      </ul>
+       <form th:action="@{/logout}" method="post">
+           <input type="submit" class="btn btn-danger navbar-btn navbar-right" value="Sign Out" />
+        
+            
+        </form>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Second Container -->
+<div class="container-fluid bg-3 text-center custom-table">
+  	
+		<div class ="margin" > 
+	
+		<div class="center">
+			<form th:action="@{'/upload?email=' +${#request.userPrincipal.principal.Username}}" method="post" enctype="multipart/form-data"
+			style="max-width: 600px; margin: 0 auto;">
+			
+				<div >
+			<h3 class="heading">Drop your files here :</h3>
+			</div>
+			<div class="border rounded">
+					
+				<p>
+					<input type="file" id="myfile" name="document" required />
+				</p>
+				<p>
+					<input type="text" name="description" placeholder="Description" required />
+				</p>
+				<p>
+					<input type="submit" value="Upload" class="btn btn-primary" />
+				</p>
+
+			</div>
+		</form>
+		
+		
+	
+		</div>	
+			 <div class="viewbutton">
+                <form method="POST" th:action="@{'/getallfiles?email=' + ${#request.userPrincipal.principal.Username}}" >
+                    <button type="submit" class="btn btn-info"  >View Uploaded Documents</button>
+                </form>
+            </div>
+		</div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Website : <a href="http://www.jainsakshi.com/">www.jainsakshi.com</a></p> 
+</footer>
+
+</body>
+</html>
