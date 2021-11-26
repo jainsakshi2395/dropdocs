@@ -37,9 +37,6 @@ public class DocumentServiceImpl implements IDocumentService{
 	private final static Logger logger  = LoggerFactory.getLogger(DocumentServiceImpl.class);
 	 
 	private static String bucketName     = "file-delivery-bucket-209235793288";
-	  private static String accessKey  = "AKIATBN3M2WEPIEHRCIR";
-	  private static String secretKey  = "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";
-	  
 	
 	  @Autowired
 	DocumentRepo documentDao;
